@@ -28,7 +28,10 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/public/assets
+# Ignore Vite build output and JavaScript dependencies.
+/public/vite
+/public/vite-test
+/node_modules
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key

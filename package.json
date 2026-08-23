@@ -1,0 +1,14 @@
+{
+  "name": "rodauth-demo-inertia",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "rails-vite-plugin": "^0.2.5",
+    "vite": "^8.2.2"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.23",
+    "stimulus-vite-helpers": "^3.1.0"
+  }
+}
