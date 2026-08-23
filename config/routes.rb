@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  get "inertia-example", to: "inertia_example#index"
-
   # Defines the root path route ("/")
-  root "inertia_example#index"
+  root "home#index"
 end

@@ -23,5 +23,10 @@ module RodauthDemoInertia
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # InertiaRails' middleware copies X-XSRF-TOKEN into X-CSRF-Token, which
+    # Rodauth's CSRF check relies on. Make sure it runs first, before Rodauth's
+    # middleware handles the request.
+    config.middleware.move_after InertiaRails::Middleware, Rodauth::Rails::Middleware
   end
 end

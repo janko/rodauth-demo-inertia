@@ -1,7 +1,10 @@
 import { createInertiaApp } from '@inertiajs/react'
+import Layout from '../layouts/layout'
 
 createInertiaApp({
   pages: "../pages",
+
+  layout: () => Layout,
 
   strictMode: true,
 
@@ -24,7 +27,7 @@ createInertiaApp({
     console.error(
       "Missing root element.\n\n" +
       "If you see this error, it probably means you loaded Inertia.js on non-Inertia pages.\n" +
-      'Consider moving <%= vite_javascript_tag "inertia.jsx" %> to the Inertia-specific layout instead.',
+      'Consider moving <%= vite_tags "inertia.jsx" %> to the Inertia-specific layout instead.',
     )
   }
 })

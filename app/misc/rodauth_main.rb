@@ -47,6 +47,11 @@ class RodauthMain < Rodauth::Rails::Auth
     verify_account_set_password? false
 
     # Change some default param keys.
+    # Ask for the login and the password on separate pages, which is what
+    # renders the `multi_phase_login` component. Rodauth still accepts a
+    # single request carrying both.
+    use_multi_phase_login? true
+
     login_param "email"
     login_confirm_param "email-confirm"
     # password_confirm_param "confirm_password"
@@ -146,5 +151,91 @@ class RodauthMain < Rodauth::Rails::Auth
     # reset_password_deadline_interval Hash[hours: 6]
     # verify_login_change_deadline_interval Hash[days: 2]
     # remember_deadline_interval Hash[days: 30]
+
+    # ==> Inertia views
+    # Each Rodauth page renders an Inertia component instead of the built-in
+    # Tilt template. The props carry the decisions Rodauth's own templates make
+    # as they render: which fields to include, which submitted values to echo
+    # back, and the markup it builds in Ruby around the login form.
+    login_view do
+      inertia_component "login",
+        skip_password_field: skip_password_field_on_login?,
+        login: param(login_param),
+        reset_password_request: @reset_password_request,
+        footer_links: login_form_footer_links.map { |_, href, text| { href:, text: } }
+    end
+
+    multi_phase_login_view do
+      inertia_component "multi_phase_login",
+        login: param(login_param),
+        reset_password_request: @reset_password_request,
+        footer_links: login_form_footer_links.map { |_, href, text| { href:, text: } }
+    end
+
+    # Rodauth's own login template embeds the password reset form in the page
+    # header after a failed login (it assigns `@login_form_header`); flag it
+    # here so the Inertia page can render the same thing.
+    after_login_failure { @reset_password_request = true }
+
+    logout_view { inertia_component "logout" }
+
+    create_account_view do
+      inertia_component "create_account",
+        login: param(login_param),
+        login_confirm: param(login_confirm_param),
+        set_password: create_account_set_password?,
+        require_login_confirmation: require_login_confirmation?,
+        require_password_confirmation: require_password_confirmation?
+    end
+
+    verify_account_view do
+      inertia_component "verify_account",
+        set_password: verify_account_set_password?,
+        require_password_confirmation: require_password_confirmation?
+    end
+
+    # Rodauth names this view after the feature, not the page.
+    resend_verify_account_view do
+      inertia_component "verify_account_resend", login: param(login_param)
+    end
+
+    reset_password_request_view { inertia_component "reset_password_request" }
+
+    reset_password_view do
+      inertia_component "reset_password",
+        require_password_confirmation: require_password_confirmation?
+    end
+
+    change_password_view do
+      inertia_component "change_password",
+        requires_password: change_password_requires_password?,
+        require_password_confirmation: require_password_confirmation?
+    end
+
+    change_login_view do
+      inertia_component "change_login",
+        login: param(login_param),
+        login_confirm: param(login_confirm_param),
+        requires_password: change_login_requires_password?,
+        require_login_confirmation: require_login_confirmation?
+    end
+
+    close_account_view do
+      inertia_component "close_account",
+        requires_password: close_account_requires_password?
+    end
+
+    remember_view { inertia_component "remember" }
+
+    verify_login_change_view { inertia_component "verify_login_change" }
+  end
+
+  private
+
+  # Rodauth's templates read field errors back one at a time via `field_error`;
+  # Inertia pages instead receive them all as an `errors` prop, the shape
+  # Inertia's own success/error tracking expects.
+  def inertia_component(component, props = {})
+    rails_render inertia: "rodauth/#{component}", props: { errors: @field_errors || {}, **props }
   end
 end
