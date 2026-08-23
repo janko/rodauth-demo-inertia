@@ -3,12 +3,18 @@
   "type": "module",
   "private": true,
   "devDependencies": {
+    "@inertiajs/vite": "^3.7.0",
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.0",
     "rails-vite-plugin": "^0.2.5",
+    "tailwindcss": "^4.3.3",
     "vite": "^8.2.2"
   },
   "dependencies": {
-    "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.23",
-    "stimulus-vite-helpers": "^3.1.0"
+    "@inertiajs/react": "^3.7.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   }
 }

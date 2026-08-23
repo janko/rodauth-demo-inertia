@@ -1,9 +1,4 @@
-/*
- * Application-wide styles, bundled by Vite.
- *
- * Import additional stylesheets from here, and reference assets with paths
- * relative to this file — Vite rewrites and fingerprints them:
- *
- *   @import "../styles/typography.css";
- *   background: url(../images/logo.svg);
- */
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/forms';

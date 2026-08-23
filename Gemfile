@@ -8,8 +8,8 @@ gem "sqlite3", ">= 2.1"
 gem "puma", ">= 5.0"
 # Vite integration for Rails [https://github.com/skryukov/rails_vite]
 gem "rails_vite"
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
+# Build single-page apps with server-side routing [https://github.com/inertiajs/inertia-rails]
+gem "inertia_rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
