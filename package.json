@@ -13,7 +13,7 @@
     "vite": "^8.2.2"
   },
   "dependencies": {
-    "@inertiajs/react": "^3.7.0",
+    "@inertiajs/react": "^3.7.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   }
