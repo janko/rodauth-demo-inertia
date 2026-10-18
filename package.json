@@ -8,7 +8,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.0",
-    "rails-vite-plugin": "^0.2.5",
+    "rails-vite-plugin": "^0.3.0",
     "tailwindcss": "^4.3.3",
     "vite": "^8.2.2"
   },
